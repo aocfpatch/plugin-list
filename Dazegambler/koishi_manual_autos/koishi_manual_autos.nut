@@ -4,6 +4,9 @@
 //rsv_k3 = E
 //rsv_y = Y axis
 //rsv_x = raw X axis
+::setting.version = 1337;
+::setting.revision = 1337;
+
 ::plugin.Patch("data/actor/koishi_base.nut",function() {
 	cooldowns <- [0,0,0];
 	autoCancelTimer <- 30;
