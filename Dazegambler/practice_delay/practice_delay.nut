@@ -63,7 +63,9 @@ local sqkey = "input_delay";
 		}
 		function Update() {
 			input.Update();
-			if (!::network.IsActive() && ::plugin.cfg[mod_name].data.input_delay.tointeger() > 0) {
+			if (!::network.IsActive() &&
+				(!input.b10 && (!input.b0||!input.b1||!input.b2||!input.b3)) &&
+				::plugin.cfg[mod_name].data.input_delay.tointeger() > 0) {
 				local i = {};
 				foreach(k, _ in input.__getTable) i[k] <- input[k];
 				input_buffer.insert(0,i);
