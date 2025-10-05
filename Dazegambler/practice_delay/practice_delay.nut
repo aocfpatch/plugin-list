@@ -4,17 +4,18 @@ local default_cfg = {
 
 local mod_name = "practice_delay";
 cfg <- ::plugin.LoadCFG(mod_name + ".ini", mod_name, default_cfg);
-function CheckIntegrity(table,section = null) {
-	foreach(k,v in table) {
+function CheckIntegrity() {
+	foreach(k, v in cfg.data) {
 		if (typeof v == "table"){
-			CheckIntegrity(v,k);
-			continue;
+			foreach(_k,_v in v) {
+				if (!(_k in cfg.data[k])) cfg.Set(_v, _k, k);
+			}
+		}else {
+			if (!(k in cfg.data)) cfg.Set(v, k);
 		}
-		if (!(k in cfg.data)) cfg.Set(v, k, section);
 	}
 }
-CheckIntegrity(default_cfg);
-
+CheckIntegrity();
 
 local function ConfigPage(section,_table,...) {
 	return function () {
